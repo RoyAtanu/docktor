@@ -18,7 +18,5 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 2.2.108
-    - name: Navigate to solution directory
-      run: cd src
     - name: Build with .NET
-      run: dotnet build --configuration Release
+      run: dotnet build src/Docktor.sln --configuration Release
