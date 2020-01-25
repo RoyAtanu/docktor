@@ -1,0 +1,22 @@
+name: Build Application w/ .NET Core
+
+on: 
+  push:
+    branches: 
+      - master
+
+jobs:
+  build:
+    name: Build Application
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout solution
+      uses: actions/checkout@v1
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 2.2.108
+    - name: Build with .NET
+      run: dotnet build --configuration Release
