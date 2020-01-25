@@ -19,6 +19,6 @@ jobs:
       with:
         dotnet-version: 2.2.108
     - name: Navigate to solution directory
-      run: cd /src
+      run: cd src
     - name: Build with .NET
       run: dotnet build --configuration Release
