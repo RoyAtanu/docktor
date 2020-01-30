@@ -1,0 +1,12 @@
+{
+  "DockerSettings": {
+    "ApiEndpoint": "http://localhost:8080"
+  },
+  "InfluxDBSettings": {
+    "InfluxURL": "http://localhost:8086",
+    "UserName": "admin",
+    "Password": "",
+    "DBName": "dockerdata",
+    "MeasurementName": "ContainerStats"
+  } 
+}

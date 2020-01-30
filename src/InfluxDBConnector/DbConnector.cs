@@ -11,12 +11,14 @@ namespace InfluxDBConnector
     public class DbConnector
     {
         private readonly InfluxDBClient _dbClient;
+        private InfluxDbSettings _settings;
 
-        public DbConnector()
+        public DbConnector(InfluxDbSettings settings)
         {
-            this._dbClient = new InfluxDBClient(Configuration.influxUrl,
-                Configuration.dbUsername,
-                Configuration.dbPassword);
+            this._settings = settings;
+            this._dbClient = new InfluxDBClient(settings.InfluxUrl.ToString(),
+                settings.UserName,
+                settings.Password);
         }
 
         public async Task AddDataPoint(DockerStatDataModel model)
@@ -30,10 +32,10 @@ namespace InfluxDBConnector
             valMixed.Fields.Add("DiskInput", new InfluxValueField(BinaryConverter.ConvertBytesToMegabytes(model.StorageStats.WriteSizeBytes)));
             valMixed.Fields.Add("DiskOutput", new InfluxValueField(BinaryConverter.ConvertBytesToMegabytes(model.StorageStats.ReadSizeBytes)));
 
-            valMixed.MeasurementName = Configuration.measurementName;
+            valMixed.MeasurementName = _settings.MeasurementName;
             valMixed.Precision = TimePrecision.Seconds;
 
-            var r = await _dbClient.PostPointAsync(Configuration.dbName, valMixed);
+            var r = await _dbClient.PostPointAsync(_settings.DbName, valMixed);
         }
     }
 }
